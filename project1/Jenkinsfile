@@ -1,24 +1,20 @@
 pipeline {
     agent any
-
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/b-chetna/git-practice.git'
             }
         }
-
         stage('InstallDependencies') {
             steps {
-                bat 'pip install -r requirements.txt'
+                bat 'cd project1 && pip install -r requirements.txt'
             }
         }
-
         stage('RunUnitTests') {
             steps {
-                bat 'pytest test_app.py -v'
+                bat 'cd project1 && pytest test_app.py -v'
             }
         }
     }
