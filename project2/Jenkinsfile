@@ -1,0 +1,22 @@
+pipeline{
+    agentany
+    stages{
+        stage('Checkout') {
+            steps{
+                gitbranch: 'main', url: 'https://github.com/b-chetna/git-practice.git'
+            }
+        }
+        stage('Build') {
+            steps{
+                bat 'python -m py_compile app.py'
+                echo 'Build successful: app.py compiled with no syntax errors'
+            }
+        }
+        stage('Deploy') {
+            steps{
+                inputmessage: 'Approvedeploymenttoproduction?', ok: 'Deploy'
+                bat 'pythonapp.py'
+            }
+        }
+    }
+}
