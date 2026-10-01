@@ -1,0 +1,25 @@
+pipeline{
+    agentany
+    stages{
+        stage('Checkout') {
+            steps{
+                gitbranch: 'main', url: 'https://github.com/<student-username>/<repo-name>.git'
+            }
+        }
+        stage('ShowBuildInfo') {
+            steps{
+                echo "BuildNumber: ${env.BUILD_NUMBER}"
+                echo "JobName: ${env.JOB_NAME}"
+                echo "Workspace: ${env.WORKSPACE}"
+            }
+        }
+        stage('RunLinter') {
+            steps{
+                bat 'flake8app.py'
+            }
+        }
+    }
+}
+
+
+
